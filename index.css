@@ -1,0 +1,24 @@
+.pokemon-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.pokemonCard {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  border: 1 px solid black;
+  border-radius: 10%;
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pokemonContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
