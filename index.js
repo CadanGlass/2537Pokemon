@@ -53,9 +53,11 @@ const updatePaginationDiv = (currentPage, numPages) => {
     (currentPage - 1) * PAGE_SIZE + 1
   }-${Math.min(currentPage * PAGE_SIZE, pokemons.length)}`;
 };
+
 const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   const start = (currentPage - 1) * PAGE_SIZE;
   const selectedPokemons = pokemons.slice(start, start + PAGE_SIZE);
+  const end = start + selectedPokemons.length; // Calculate the end index of displayed pokemons
 
   const pokemonDiv = document.querySelector("#pokemon");
   pokemonDiv.innerHTML = "";
@@ -76,12 +78,17 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
   pokemonList += "</div>";
   pokemonDiv.innerHTML = pokemonList;
 
+  document.querySelector("#displayed-pokemon").textContent = `Displaying ${
+    start + 1
+  } - ${end} of ${pokemons.length} Pokémon`; // Update displayed Pokemon count
+
   document.querySelectorAll(".pokemonCard").forEach((card) => {
     card.addEventListener("click", function (e) {
       loadModal(this.getAttribute("pokeName"));
     });
   });
 };
+
 
 const loadModal = async (pokemonName) => {
   const res = await axios.get(
