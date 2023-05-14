@@ -97,12 +97,38 @@ const loadModal = async (pokemonName) => {
   const types = res.data.types
     .map((type) => `<li>${type.type.name}</li>`)
     .join("");
+
+  const abilities = res.data.abilities
+    .map((ability) => `<li>${ability.ability.name}</li>`)
+    .join("");
+
+  const stats = res.data.stats
+    .map((stat) => `<li>${stat.stat.name}: ${stat.base_stat}</li>`)
+    .join("");
+
   document.querySelector(".modal-body").innerHTML = `
-    <h3>Types</h3>
-    <ul>${types}</ul>
+    <div style="width:200px">
+      <img src="${res.data.sprites.other["official-artwork"].front_default}" alt="${res.data.name}"/>
+      <div>
+        <h3>Abilities</h3>
+        <ul>${abilities}</ul>
+      </div>
+      <div>
+        <h3>Stats</h3>
+        <ul>${stats}</ul>
+      </div>
+      <div>
+        <h3>Types</h3>
+        <ul>${types}</ul>
+      </div>
+    </div>
   `;
-  document.querySelector(".modal-title").textContent = res.data.name;
+  document.querySelector(".modal-title").innerHTML = `
+    <h2>${res.data.name.toUpperCase()}</h2>
+    <h5>${res.data.id}</h5>
+  `;
 };
+
 
 const setup = async () => {
   let response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=810");
